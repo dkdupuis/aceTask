@@ -50,7 +50,10 @@ package
 		
 		public static var score:int = 0;
 		
-		
+		public const playDelay:Boolean = false;
+		public const playEffort:Boolean = true;
+		public const playProb:Boolean = false;
+
 		
 		
 		
@@ -272,7 +275,27 @@ package
 		
 		private function generatePhaseOrder():Array
 		{
-			var availableTasks:Vector.<int> = new <int>[1,2,3];
+			// var availableTasks:Vector.<int> = new <int>[1,2,3];
+			var numTasks:int = 0;
+			var availableTasks:Array = new Array();
+			// phase type -> 1 = probability, 2 = time, 3 = effort
+			if (playProb)
+			{
+				availableTasks[numTasks] = 1;
+				numTasks++;
+			}
+			if (playDelay)
+			{
+				availableTasks[numTasks] = 2;
+				numTasks++;
+			}
+			if (playEffort)
+			{
+				availableTasks[numTasks] = 3;
+				numTasks++;
+			}
+			
+			
 			trace ("finished number: "+finishedTasks.length );
 				for (var a:int = 0; a < finishedTasks.length; a++) // remove tasks that have already been completed
 				{
