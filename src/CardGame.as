@@ -50,15 +50,22 @@ package
 		
 		public static var score:int = 0;
 		
-		public const playDelay:Boolean = false;
-		public const playEffort:Boolean = true;
+		public var playDelay:Boolean = false;
+		public const playEffort:Boolean = false;
 		public const playProb:Boolean = false;
 
-		
+		//import flash.desktop.NativeApplication; 
+
+		import flash.desktop.InvokeEventReason; 
+		import flash.desktop.NativeApplication; 
+		import flash.display.Sprite; 
+		import flash.events.InvokeEvent;
+ 
 		
 		
 		public function CardGame()
 		{
+			NativeApplication.nativeApplication.addEventListener( InvokeEvent.INVOKE, onInvoke );
 			super(1024, 768);	
 			//FP.console.enable();
 			Text.font = "My Font";		
@@ -72,6 +79,18 @@ package
 			dir.createDirectory();
 			//var dir2:File = File.documentsDirectory.resolvePath("ACE Data/user_xml");
 			//dir2.createDirectory();
+			
+		}
+		private function onInvoke( event:InvokeEvent ):void 
+        {
+			//Error(event.toString())
+			
+			//event.
+			//var arguments:Array = event.arguments;
+			if ( event.arguments.length >  0)
+			{
+				playDelay = true
+			}
 			
 		}
 		
