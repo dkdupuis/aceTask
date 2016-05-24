@@ -50,10 +50,14 @@ package
 		
 		public static var score:int = 0;
 		
-		public var playDelay:Boolean = false;
+		public var playDelay:Boolean = true;
 		public const playEffort:Boolean = false;
 		public const playProb:Boolean = false;
-
+		
+		public var cliFileResolved:Boolean = true;//change to default to false
+		public var cliUserId:String = rand(0,500000).toString();
+		public var filePath:String = "C:\\Users\\Sarah\\Documents\\ACE Data";
+		
 		//import flash.desktop.NativeApplication; 
 
 		import flash.desktop.InvokeEventReason; 
@@ -71,7 +75,7 @@ package
 			Text.font = "My Font";		
 			Text.size = 24;
 			loadSettings();
-			FP.world = new TitleScreen(this);
+			FP.world = new TitleScreen(this, cliFileResolved)//, cliFileResolved, cliUserId);
 			//flash.external.ExternalInterface.addCallback("calling app", beep);
 			//startGame();
 			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
@@ -87,10 +91,57 @@ package
 			
 			//event.
 			//var arguments:Array = event.arguments;
-			if ( event.arguments.length >  0)
+			/*if ( event.arguments.length >= 2)
 			{
 				playDelay = true
+				cliFilePath = event.arguments[0]
+				cliUserId = event.arguments[1]
+				
+				try opening filestreams
+				
+				if fileStreams opened
+					cliFileResolved = true;
 			}
+			
+			
+			//userID = user;
+			//saveFile = File.documentsDirectory;
+			//saveFile = saveFile.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
+			
+			var cliUserId:String = rand(0,500000).toString();
+			var cliFilePath:String = "C:\\Users\Sarah\Documents\ACE Data";
+			//var file:File = new File(); 
+			saveFile.nativePath = cliFilePath + cliUserId;
+			
+			//saveFile = File.documentsDirectory.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
+			xmlSaveFile = File.documentsDirectory;
+			xmlSaveFile = xmlSaveFile.resolvePath("Ace Data/" + "xml_" + userID + ".xml");
+			fStream = new FileStream;
+			xStream = new FileStream;
+			*/
+			
+			//var filePath:String = "C:\\Users\Sarah\Documents\ACE Data";
+			
+			var thisDate:Date = new Date();
+			/*
+			//thisDate.timezoneOffset(-6)//???
+			userID = "21a46a";
+			
+			saveFile = new File()
+			saveFile.nativePath = filePath + "\\" + filePrefix + userID + "_" + thisDate.month + "_" + thisDate.day + "_" + thisDate.fullYear + "_" +".txt";
+			//saveFile.save("asasa");
+			
+			//xmlSaveFile = new File()
+			//xmlSaveFile.nativePath = filePath + "\\" + "xml_" + userID + ".xml";
+			
+			fStream = new FileStream;
+			xStream = new FileStream;
+			
+			fStream.open(saveFile, FileMode.APPEND);
+			fStream.writeUTFBytes("NEW SESSION-----"+"User: " + userID +" Date: " + thisDate +"\r\n"  );
+			fStream.close();
+			*/
+			//createInitialSaveFile()
 			
 		}
 		
@@ -104,8 +155,13 @@ package
 		public function createInitialSaveFile():void //loadUserFiles must be run first
 		{
 			var thisDate:Date = new Date();
-			saveFile.save("User: " + userID +" Date: " + thisDate +"\r\n", filePrefix + userID + ".txt");
+			//saveFile.save("User: " + userID +" Date: " + thisDate +"\r\n", filePrefix + userID + ".txt");
+			//			saveFile.save("User: " + userID +" Date: " + thisDate +"\r\n");// , filePrefix + userID + ".txt");
 			
+			fStream.open(saveFile, FileMode.WRITE);
+			fStream.writeUTFBytes("User: " + userID +" Date: " + thisDate +"\r\n");
+			fStream.close();
+
 		}
 		public function createInitialXML():void //read xml create a new one if one does not exsist
 		{
@@ -124,15 +180,21 @@ package
 			xmlSaveFile.deleteFile();
 		}
 		public function loadUserFiles(user:String):void
-		{
+		{			
 			userID = user;
+			var thisDate:Date = new Date();
+
 			//saveFile = File.documentsDirectory;
 			//saveFile = saveFile.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
-			saveFile = File.documentsDirectory.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
-			xmlSaveFile = File.documentsDirectory;
-			xmlSaveFile = xmlSaveFile.resolvePath("Ace Data/" + "xml_" + userID + ".xml");
+			//saveFile = File.documentsDirectory.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
+			saveFile = new File()
+			saveFile.nativePath = filePath + "\\" + filePrefix + userID + "_" + thisDate.month + "_" + thisDate.day + "_" + thisDate.fullYear + "_" +".txt";
+		
+			xmlSaveFile = new File()
+			xmlSaveFile.nativePath = filePath + "\\" + "xml_" + userID + "_" + thisDate.month + "_" + thisDate.day + "_" + thisDate.fullYear + "_" + ".xml";
 			fStream = new FileStream;
 			xStream = new FileStream;
+			
 		}
 		public function readXML():void //loadUserFiles must be run first
 		{
@@ -192,10 +254,9 @@ package
 			}
 			nextPhase();	
 		}
-		
+		////DURRRRRRRRRRRRR
 		public function fileExists(userID:String):Boolean
-		{
-			var thisFile:File = File.documentsDirectory;
+		{var thisFile:File = File.documentsDirectory;
 			thisFile = thisFile.resolvePath("ACE data/" +filePrefix + userID + ".txt");
 			if (thisFile.exists) { return true }
 			else {return false}
