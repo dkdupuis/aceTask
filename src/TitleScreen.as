@@ -26,6 +26,7 @@ package
 		public var conflictOptions: TitleScreen_Conflict;
 		public var conflictMode:Boolean = false;
 		public var cliFileUsed:Boolean = false;
+		public var skipCreateFileCheack:Boolean = true;
 		
 		private var idInput:TextBox;
 		private var btnStart:Button;
@@ -64,13 +65,13 @@ package
 			 //Note: User must save the file as the default name or the program will not continue!
 			if (newIDPause) //new ID has been entered and we must wait until they click 'save file' in the window
 			{
-				if (!XMLSaveRequestSent && (cliFileUsed || engineObj.fileExists(userID))) 
+				if (!XMLSaveRequestSent && (skipCreateFileCheack || engineObj.fileExists(userID))) 
 				{ 
 					engineObj.createInitialXML(); 
 					XMLSaveRequestSent = true; 
 					
 				} // handle UserXML will move isXMLSaved to 3
-				if ((cliFileUsed || engineObj.fileExists(userID)) && engineObj.XMLExists(userID)) 
+				if ((skipCreateFileCheack || (engineObj.fileExists(userID)) && engineObj.XMLExists(userID)))
 				{ 
 					engineObj.readXML();
 					engineObj.startGame(userID);  
