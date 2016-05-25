@@ -151,7 +151,13 @@ package
 			else if (btnType == "giveup")
 				taskController.giveup();
 			else if (btnType == "start" && !titleWorld.conflictMode)
-				titleWorld.start(textBox.getCodeString());
+			{
+				if(textBox.visible == true)
+					titleWorld.start(textBox.getCodeString());
+				else
+					titleWorld.start("");
+				
+			}
 			else if (btnType == "sound")
 				titleWorld.soundSetting();
 			else if (btnType == "giveup-time")

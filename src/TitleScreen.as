@@ -34,20 +34,31 @@ package
 		private var newIDPause:Boolean = false;
 		private var tempID: String;
 		private var overWritePause:Boolean = false;
-		public var XMLSaveRequestSent: Boolean =false;
+		public var XMLSaveRequestSent: Boolean = false;
+		public var cliUserID:String;
 		
-		public function TitleScreen( engineObj:CardGame, cliFileUsed:Boolean )//, cliFileResolved:Boolean, inputUserId:String)
-		{ //for now passing userId to make sure it's working
+		public function TitleScreen( engineObj:CardGame, cliFileUsed:Boolean, inputUserID:String)
+		{ 
 			this.engineObj = engineObj;
 			this.cliFileUsed = cliFileUsed
-			
+
 			idInput= new TextBox( this );
+			
+			if (cliFileUsed)
+			{
+				idInput.visible = false;
+				cliUserID = inputUserID;
+			}	
 			add(idInput);
 			
 			btnSound = new Button(950, 15, "sound", null, null, this, null); btnSound.toggle = true; if (CardGame.soundEnabled == false) { btnSound.clicked = true;}
 			add(btnSound);
 			//temp displaying userId
-			var inputTitle:Entity = new Entity(400, 650, new Text("Type ID# and click Start to begin"));// + inputUserId));
+			if (cliFileUsed)
+				var inputTitle:Entity = new Entity(400, 650, new Text("Click Start to begin"));
+			else
+				var inputTitle:Entity = new Entity(400, 650, new Text("Type ID# and click Start to begin"));
+				
 			add(inputTitle);
 			
 			btnStart = new Button(620, 495, "start", null, null, this, idInput);
@@ -85,8 +96,7 @@ package
 					overWritePause = false;
 					engineObj.loadUserFiles(userID); 
 					engineObj.createInitialSaveFile(); 
-					newIDPause = true ;
-					
+					newIDPause = true;	
 				}
 			}
 			
@@ -94,18 +104,10 @@ package
 		
 		public function start(userID:String):void // wait for file search to verify no file exists for this user
 		{
-			//engineObj.startGame("las");
 			
-			/*if (true)
-			{
-				this.userID = userID;
-				engineObj.loadUserFiles(userID);
-				engineObj.createInitialSaveFile();
-				engineObj.createInitialXML();
-				//engineObj.readXML();
-				engineObj.startGame(userID);
-				return;
-			}*/
+			if (cliFileUsed)
+				userID = cliUserID;
+			
 			if (tempID != userID) { newIDPause = false; overWritePause = false; } // reset selection Pause if another ID is tried
 			XMLSaveRequestSent = false;
 			this.userID = userID;

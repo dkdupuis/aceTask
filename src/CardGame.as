@@ -55,7 +55,7 @@ package
 		public const playProb:Boolean = false;
 		
 		public var cliFileResolved:Boolean = true;//change to default to false
-		public var cliUserId:String = rand(0,500000).toString();
+		public var cliUserId:String = "10";
 		public var filePath:String = "C:\\Users\\Sarah\\Documents\\ACE Data";
 		
 		//import flash.desktop.NativeApplication; 
@@ -75,7 +75,7 @@ package
 			Text.font = "My Font";		
 			Text.size = 24;
 			loadSettings();
-			FP.world = new TitleScreen(this, cliFileResolved)//, cliFileResolved, cliUserId);
+			FP.world = new TitleScreen(this, cliFileResolved, cliUserId);
 			//flash.external.ExternalInterface.addCallback("calling app", beep);
 			//startGame();
 			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
@@ -122,7 +122,15 @@ package
 			
 			//var filePath:String = "C:\\Users\Sarah\Documents\ACE Data";
 			
-			var thisDate:Date = new Date();
+			//var thisDate:Date = new Date();
+			
+			//public var cliUserId:String = 10;
+			//public var filePath:String = "C:\\Users\\Sarah\\Documents\\ACE Data";
+			
+			//set filePath
+			cliFileResolved = true;
+			//loadUserFiles(cliUserId);
+			
 			/*
 			//thisDate.timezoneOffset(-6)//???
 			userID = "21a46a";
@@ -165,7 +173,10 @@ package
 		}
 		public function createInitialXML():void //read xml create a new one if one does not exsist
 		{
-			xmlSaveFile.save("<data finishedTasks=\"\"></data>", "xml_" + userID + ".xml");
+			//xmlSaveFile.save("<data finishedTasks=\"\"></data>", "xml_" + userID + ".xml");
+			xStream.open(xmlSaveFile, FileMode.WRITE); 
+			xStream.writeUTFBytes("<data finishedTasks=\"\"></data>");//, "xml_" + userID + ".xml");
+			xStream.close(); 
 		}
 		public function XMLExists(userID:String):Boolean
 		{
@@ -254,7 +265,7 @@ package
 			}
 			nextPhase();	
 		}
-		////DURRRRRRRRRRRRR
+
 		public function fileExists(userID:String):Boolean
 		{var thisFile:File = File.documentsDirectory;
 			thisFile = thisFile.resolvePath("ACE data/" +filePrefix + userID + ".txt");
