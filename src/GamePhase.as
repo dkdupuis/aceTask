@@ -147,8 +147,6 @@ package
 			
 			//add in message window for tutorial
 			
-			
-
 			//keep at bottom	
 			dealCard();
 		}
@@ -176,7 +174,14 @@ package
 				remove(currentCard);
 				if (CardGame.soundEnabled) new Sfx(NEXT_PHASE).play(); 
 				keycheckDisable = true;
-				setTimeout(engineObj.nextPhase, 1000);
+							
+				var lenTimeout:int = 0;
+			
+				if (engineObj.numBlocks > 1)
+				{
+					lenTimeout = 15000;
+				}
+				setTimeout(engineObj.nextPhase, lenTimeout);
 			}
 			// we assume the buttons are held in so we force the keys to be unpressed before checking again
 			//if (!Input.check(Key.S) && !Input.check(Key.K) && !Input.check(Key.I) && !Input.check(Key.P)) { keyPressToggle = false;}
@@ -337,7 +342,15 @@ package
 			if (CardGame.soundEnabled){new Sfx(NEXT_PHASE).play()};
 			engineObj.addToScore(score);
 			engineObj.updateFinishedTasks(phaseType); //update the xml sheet now that we finished this task
-			setTimeout(engineObj.nextPhase, 15000);
+			
+			var lenTimeout:int = 0;
+			
+			if (engineObj.numBlocks > 1)
+			{
+				lenTimeout = 15000;
+			}
+			
+			setTimeout(engineObj.nextPhase, lenTimeout);
 		}
 		
 		

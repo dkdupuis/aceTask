@@ -40,8 +40,8 @@ package
 		public function TitleScreen( engineObj:CardGame, cliFileUsed:Boolean, inputUserID:String)
 		{ 
 			this.engineObj = engineObj;
-			this.cliFileUsed = cliFileUsed
-
+			this.cliFileUsed = cliFileUsed;
+			cliFileUsed = true; // check if its ok (didn't have ; in prev statement) this forces cli
 			idInput= new TextBox( this );
 			
 			if (cliFileUsed)

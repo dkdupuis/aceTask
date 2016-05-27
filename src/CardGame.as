@@ -53,8 +53,9 @@ package
 		public var playDelay:Boolean = true;
 		public const playEffort:Boolean = false;
 		public const playProb:Boolean = false;
+		public var numBlocks:int;
 		
-		public var cliFileResolved:Boolean = true;//change to default to false
+		public var cliFileResolved:Boolean = false;//change to default to false
 		public var cliUserId:String = "10";
 		public var filePath:String = "C:\\Users\\Sarah\\Documents\\ACE Data";
 		
@@ -70,6 +71,12 @@ package
 		public function CardGame()
 		{
 			NativeApplication.nativeApplication.addEventListener( InvokeEvent.INVOKE, onInvoke );
+			
+			numBlocks = 0;
+			if (playDelay) {numBlocks ++;}
+			if (playEffort) {numBlocks ++;}
+			if (playProb) {numBlocks ++;}
+			
 			super(1024, 768);	
 			//FP.console.enable();
 			Text.font = "My Font";		
@@ -91,19 +98,16 @@ package
 			
 			//event.
 			//var arguments:Array = event.arguments;
-			/*if ( event.arguments.length >= 2)
+			if ( event.arguments.length >= 2)
 			{
+				cliFileResolved = true;
 				playDelay = true
-				cliFilePath = event.arguments[0]
+				filePath = event.arguments[0]
 				cliUserId = event.arguments[1]
-				
-				try opening filestreams
-				
-				if fileStreams opened
-					cliFileResolved = true;
+
 			}
 			
-			
+			/*
 			//userID = user;
 			//saveFile = File.documentsDirectory;
 			//saveFile = saveFile.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
@@ -128,7 +132,7 @@ package
 			//public var filePath:String = "C:\\Users\\Sarah\\Documents\\ACE Data";
 			
 			//set filePath
-			cliFileResolved = true;
+			
 			//loadUserFiles(cliUserId);
 			
 			/*
@@ -192,17 +196,18 @@ package
 		}
 		public function loadUserFiles(user:String):void
 		{			
-			userID = user;
+			//hack;
+			userID = cliUserId;
 			var thisDate:Date = new Date();
-
+			var timeStr:String = thisDate.getFullYear() + "" + thisDate.getMonth() + "" + thisDate.getDate() + "_" + thisDate.getHours() + thisDate.getMinutes() + thisDate.getSeconds();
 			//saveFile = File.documentsDirectory;
 			//saveFile = saveFile.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
 			//saveFile = File.documentsDirectory.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
 			saveFile = new File()
-			saveFile.nativePath = filePath + "\\" + filePrefix + userID + "_" + thisDate.month + "_" + thisDate.day + "_" + thisDate.fullYear + "_" +".txt";
+			saveFile.nativePath = filePath + "\\" + filePrefix + userID + "_" + timeStr + ".txt";
 		
 			xmlSaveFile = new File()
-			xmlSaveFile.nativePath = filePath + "\\" + "xml_" + userID + "_" + thisDate.month + "_" + thisDate.day + "_" + thisDate.fullYear + "_" + ".xml";
+			xmlSaveFile.nativePath = filePath + "\\" + "xml_" + userID + "_" + timeStr + ".xml";
 			fStream = new FileStream;
 			xStream = new FileStream;
 			

@@ -46,6 +46,7 @@
 		 * @param	frameRate		The game framerate, in frames per second.
 		 * @param	fixed			If a fixed-framerate should be used.
 		 */
+		 
 		public function Engine(width:uint, height:uint, frameRate:Number = 60, fixed:Boolean = false) 
 		{
 			// global game properties
