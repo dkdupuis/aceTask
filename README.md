@@ -14,6 +14,7 @@
  * Use FlashDevelop to install air and related stuff
  * Develop
  * To create a new air file, in FlashDevelop explore window
+   * Edit the path to Flex SDK in 'bat\SetupSDK.bat' 
    * Right click, run bat/createCertificate.bat
    * Right click, run PacakgeApp.bat
  * New deployment file will be generated (air/ACE.air) 
