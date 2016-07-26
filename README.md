@@ -1,5 +1,11 @@
 # aceTask
 
+This is the code base for the Ace Task. Below is the reference for this program. For questions, contact David DuPuis (dkdupuis@gmail.com) or Lisa Gazke-Kopp (lmk18@psu.edu).
+
+Children's sensitivity to cost and reward in decision making across distinct domains of probability, effort, and delay. (In Progress)
+  Lisa M. Gatzke-Kopp, Nilam Ram, David Lydon, & David DuPuis
+
+
 ## Deployment Instructions (mac or PC)
  * Install adobe air (http://get.adobe.com/air/)
  * Install ACE.air
