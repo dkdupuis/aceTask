@@ -50,8 +50,8 @@ package
 		
 		public static var score:int = 0;
 		
-		public var playDelay:Boolean = true;
-		public const playEffort:Boolean = false;
+		public var playDelay:Boolean = false;
+		public const playEffort:Boolean = true;
 		public const playProb:Boolean = false;
 		public var numBlocks:int;
 		
@@ -79,7 +79,7 @@ package
 			
 			super(1024, 768);	
 			//FP.console.enable();
-			Text.font = "My Font";		
+			Text.font = "My Font";
 			Text.size = 24;
 			loadSettings();
 			FP.world = new TitleScreen(this, cliFileResolved, cliUserId);
@@ -101,59 +101,10 @@ package
 			if ( event.arguments.length >= 2)
 			{
 				cliFileResolved = true;
-				playDelay = true
 				filePath = event.arguments[0]
 				cliUserId = event.arguments[1]
 
 			}
-			
-			/*
-			//userID = user;
-			//saveFile = File.documentsDirectory;
-			//saveFile = saveFile.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
-			
-			var cliUserId:String = rand(0,500000).toString();
-			var cliFilePath:String = "C:\\Users\Sarah\Documents\ACE Data";
-			//var file:File = new File(); 
-			saveFile.nativePath = cliFilePath + cliUserId;
-			
-			//saveFile = File.documentsDirectory.resolvePath("ACE Data/" + filePrefix + userID + ".txt");
-			xmlSaveFile = File.documentsDirectory;
-			xmlSaveFile = xmlSaveFile.resolvePath("Ace Data/" + "xml_" + userID + ".xml");
-			fStream = new FileStream;
-			xStream = new FileStream;
-			*/
-			
-			//var filePath:String = "C:\\Users\Sarah\Documents\ACE Data";
-			
-			//var thisDate:Date = new Date();
-			
-			//public var cliUserId:String = 10;
-			//public var filePath:String = "C:\\Users\\Sarah\\Documents\\ACE Data";
-			
-			//set filePath
-			
-			//loadUserFiles(cliUserId);
-			
-			/*
-			//thisDate.timezoneOffset(-6)//???
-			userID = "21a46a";
-			
-			saveFile = new File()
-			saveFile.nativePath = filePath + "\\" + filePrefix + userID + "_" + thisDate.month + "_" + thisDate.day + "_" + thisDate.fullYear + "_" +".txt";
-			//saveFile.save("asasa");
-			
-			//xmlSaveFile = new File()
-			//xmlSaveFile.nativePath = filePath + "\\" + "xml_" + userID + ".xml";
-			
-			fStream = new FileStream;
-			xStream = new FileStream;
-			
-			fStream.open(saveFile, FileMode.APPEND);
-			fStream.writeUTFBytes("NEW SESSION-----"+"User: " + userID +" Date: " + thisDate +"\r\n"  );
-			fStream.close();
-			*/
-			//createInitialSaveFile()
 			
 		}
 		
